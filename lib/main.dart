@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
       onPanEnd: (details) {
         // when pointer which was trigerring onPanUpdate is not in contact
         setState(() {
-          points.add(Offset.infinite);
+          points = [Offset.infinite];
         });
       },
       child: CustomPaint(

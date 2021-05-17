@@ -17,8 +17,10 @@ class Painter extends CustomPainter {
     paint.strokeWidth = 5.0;
 
     DrawArrow drawArrow = DrawArrow(canvas, points, paint);
-    drawArrow.drawTail();
-    drawArrow.drawHead();
+    if (points.length > 1) {
+      drawArrow.drawTail();
+      drawArrow.drawHead();
+    }
     // These functions Need To be Outside cuz They Need to be repainted for location changed
   }
 

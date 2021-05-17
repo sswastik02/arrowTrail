@@ -18,9 +18,6 @@ class DrawArrow {
         if (dist <= 400) {
           canvas.drawLine(points[x], points[x - 1], paint);
         }
-      } else if (points[x - 1] != Offset.infinite &&
-          points[x] == Offset.infinite) {
-        canvas.drawPoints(PointMode.points, [points[x]], paint); // If its a tap
       }
     }
   }
@@ -30,11 +27,11 @@ class DrawArrow {
     var p2 = rotateByAngle((length / 2) + x, -1 * length + y, x, y, angle);
     var p0 = [x, y];
     // if angle is 0 :
-    //                                  ^                          It gives this kind of a triangle(equilateral)
-    //                               /     \
-    //                             /         \                   So rotations are made about the vertex and w.r.t Cross axis
-    //                           /             \                  In SlopeAngle Function
-    //                         /________\
+    //                              ^                          It gives this kind of a triangle(equilateral)
+    //    IN Right handed system  /   \
+    //                           /     \                   So rotations are made about the vertex and w.r.t Cross axis
+    //                          /       \                  In SlopeAngle Function
+    //                         /_________\
 
     canvas.drawLine(Offset(p0[0], p0[1]), Offset(p1[0], p1[1]), paint);
     canvas.drawLine(Offset(p0[0], p0[1]), Offset(p2[0], p2[1]), paint);
@@ -45,12 +42,14 @@ class DrawArrow {
   void drawHead() {
     int len = points.length;
     int x1 = points[len - 1] == Offset.infinite ? len - 2 : len - 1;
-    drawTriangle(
-        points[x1].dx,
-        points[x1].dy,
-        10,
-        slopeAngle(points[x1].dx, points[x1].dy, points[x1 - 3].dx,
-            points[x1 - 3].dy));
-    // The last 2 points are very close hence does not give a general idea of the direction
+    if (x1 > 3) {
+      drawTriangle(
+          points[x1].dx,
+          points[x1].dy,
+          10,
+          slopeAngle(points[x1].dx, points[x1].dy, points[x1 - 3].dx,
+              points[x1 - 3].dy));
+      // The last 2 points are very close hence does not give a general idea of the direction
+    }
   }
 }
